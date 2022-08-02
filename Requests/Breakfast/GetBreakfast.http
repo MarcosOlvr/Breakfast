@@ -1,0 +1,3 @@
+@id=c0fdcec9-9f34-438d-b8f6-f589dc017ca9
+
+GET http://localhost:5079/breakfasts/{{id}}
