@@ -3,30 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BuberBreakfast.Models;
+using BuberBreakfast.ServiceErrors;
+using ErrorOr;
 
 namespace BuberBreakfast.Services.Breakfasts
 {
     public class BreakfastService : IBreakfastService
     {
         private static readonly Dictionary<Guid, Breakfast> _breakfasts = new();
-        public void CreateBreakfast(Breakfast breakfast)
+        public ErrorOr<Created> CreateBreakfast(Breakfast breakfast)
         {
             _breakfasts.Add(breakfast.Id, breakfast);
+
+            return Result.Created;
         }
 
-        public void DeleteBreakfast(Guid id)
+        public ErrorOr<Deleted> DeleteBreakfast(Guid id)
         {
             _breakfasts.Remove(id);
+
+            return Result.Deleted;
         }
 
-        public Breakfast GetBreakfast(Guid id)
+        public ErrorOr<Breakfast> GetBreakfast(Guid id)
         {
-            return _breakfasts[id];
+            if (_breakfasts.TryGetValue(id, out var breakfast))
+            {
+                return breakfast;
+            }
+
+            return Errors.Breakfast.NotFound;
         }
 
-        public void UpsertBreakfast(Breakfast breakfast)
+        public ErrorOr<UpsertedBreakfast> UpsertBreakfast(Breakfast breakfast)
         {
+            var isNewlyCreated = !_breakfasts.ContainsKey(breakfast.Id);
+
             _breakfasts[breakfast.Id] = breakfast;
+
+            return new UpsertedBreakfast(isNewlyCreated);
         }
     }
 }

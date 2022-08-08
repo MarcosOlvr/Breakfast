@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BuberBreakfast.Models;
+using ErrorOr;
 
 namespace BuberBreakfast.Services.Breakfasts
 {
     public interface IBreakfastService
     {
-        void CreateBreakfast(Breakfast breakfast);
-        Breakfast GetBreakfast(Guid id);
-        void UpsertBreakfast(Breakfast breakfast);
-        void DeleteBreakfast(Guid id);
+        ErrorOr<Created> CreateBreakfast(Breakfast breakfast);
+        ErrorOr<Breakfast> GetBreakfast(Guid id);
+        ErrorOr<UpsertedBreakfast> UpsertBreakfast(Breakfast breakfast);
+        ErrorOr<Deleted> DeleteBreakfast(Guid id);
     }
 }

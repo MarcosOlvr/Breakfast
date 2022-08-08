@@ -1,10 +1,10 @@
-@id=c0fdcec9-9f34-438d-b8f6-f589dc017ca9
+@id=cb6f66a6-be3e-42f0-9a56-7b7aab51e65d
 
 PUT http://localhost:5079/breakfasts/{{id}}
 Content-Type: application/json
 
 {
-    "name": "Vegan Sunshine 2",
+    "name": "Vegan Sunshine",
     "description": "Vegan everything! Join us for a healthy breakfast..",
     "startDateTime": "2022-04-08T08:00:00",
     "endDateTime": "2022-04-08T11:00:00",
